@@ -1,0 +1,14 @@
+ul {
+  background-color: black;
+  margin: 0px;
+}
+
+li {
+  display: inline-block;
+  margin: 10px;
+  font-size: 20px;
+}
+
+.Link {
+  color: white !important;
+}
