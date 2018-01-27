@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
+import { Jumbotron, Button } from 'reactstrap';
 
 class Home extends Component {
   render() {
     return (
       <div>
-        <h1>HELLO THIS IS HOME</h1>
+        <Jumbotron>
+          <h1 className="jumbotron-label">Ace Your Interview</h1>
+          <h2 className="jumbotron-sub-label">Land your dream job.</h2>
+        </Jumbotron>
       </div>
     );
   }

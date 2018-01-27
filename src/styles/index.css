@@ -1,14 +1,110 @@
-ul {
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:regular,bold,italic&subset=latin,latin-ext');
+@import url('https://fonts.googleapis.com/css?family=Titillium+Web');
+
+body {
+  margin: 0px;
+  padding: 0px;
+}
+html {
+  font-family: 'Titillium Web', sans-serif;
+}
+
+h1 {
+  margin: 0px;
+}
+
+/* Navigation */
+.navigation-container {
+  padding: 30px 5px;
   background-color: black;
   margin: 0px;
 }
 
-li {
-  display: inline-block;
-  margin: 10px;
-  font-size: 20px;
+/* Index Page */
+#popular-questions-label {
+  text-shadow: 2px 2px black;
+  color: white;
+  font-weight: 800;
 }
 
-.Link {
-  color: white !important;
+#learn-more-container {
+  background-color: #282e37;
+  padding: 30px;
+  margin: 0px;
+}
+
+#learn-more-container > h1 {
+  border-bottom: 2px solid #0bb4e0;
+}
+#learn-more-container > p {
+  font-size: 25px;
+  line-height: 35px;
+  text-align: center;
+  padding: 10px 0px;
+}
+
+.jumbotron-label {
+  color: white;
+  text-align: center;
+  font-size: 100px;
+  padding-top: 50px;
+}
+
+.jumbotron {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin: 0px;
+  color: white;
+  background-image: url('../images/cover.png');
+  background-position: center;
+  background-size: cover;
+  height: 800px;
+}
+
+#popular-questions {
+  padding: 0px;
+  margin: 0px;
+  overflow: hidden;
+  overflow-y: scroll;
+}
+
+.question-card {
+  background-color: #daeefb;
+  margin: 30px;
+  border-radius: 10px;
+  transition-property: box-shadow;
+  transition-duration: 0.1s;
+  transition-timing-function: linear;
+}
+
+.question-card:hover {
+  box-shadow: 0px 0px 25px white;
+}
+
+.username {
+  text-align: center;
+  background-color: black;
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  font-size: 30px;
+  padding: 26px 10px;
+  word-break: break-all;
+  border-right: 5px solid #0bb4e0;
+  color: white;
+  transition-property: background-color;
+  transition-duration: 0.1s;
+  transition-timing-function: linear;
+}
+
+.username-logged-in:hover {
+  cursor: pointer;
+  background-color: #1f1f1f;
+}
+
+.question {
+  font-size: 25px;
+  text-align: center;
+  padding: 10px 5px;
+  color: black;
 }

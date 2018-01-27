@@ -1,51 +1,74 @@
 import React, { Component } from 'react';
-import { Route, Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import '../styles/index.css';
 
 class Navigation extends Component {
+  loggedIn() {
+    return true;
+  }
+  loggedOut() {
+    return false;
+  }
+
   render() {
-    return (
-      <div>
-        <ul role="nav">
-          <li>
-            <StyledLink to="/">Home</StyledLink>
-          </li>
-          <li>
-            <StyledLink to="/register">Register</StyledLink>
-          </li>
-          <li>
-            <StyledLink to="/login">Login</StyledLink>
-          </li>
-          <li>
-            <StyledLink to="/question-banks">Question Banks</StyledLink>
-          </li>
-          <li>
-            <StyledLink to="/history">History</StyledLink>
-          </li>
-          <li>
-            <StyledLink to="/search">Search</StyledLink>
-          </li>
-          <li>
-            <StyledLink to="/practice">Practice</StyledLink>
-          </li>
-          <li>
-            <StyledLink to="/my-account">My Account</StyledLink>
-          </li>
-          <li>
-            <StyledLink to="/logout">Logout</StyledLink>
-          </li>
-        </ul>
-        {this.props.children}
-      </div>
-    );
+    if (this.loggedOut()) {
+      return (
+        <div className="navigation-container">
+          <IconLink to="/">AceIt</IconLink>
+          <StyledLink to="/question-banks">Question Banks</StyledLink>
+          <StyledLink to="/history">History</StyledLink>
+          <StyledLink to="/search">Search</StyledLink>
+          <StyledLink to="/practice">Practice</StyledLink>
+          <StyledLink to="/my-account">My Account</StyledLink>
+          <StyledLink to="/logout">Logout</StyledLink>
+          {this.props.children}
+        </div>
+      );
+    } else {
+      return (
+        <div className="navigation-container">
+          <IconLink to="/">AceIt</IconLink>
+          <StyledLink to="/register">Register</StyledLink>
+          <StyledLink to="/login">Login</StyledLink>
+          {this.props.children}
+        </div>
+      );
+    }
   }
 }
 
+const IconLink = styled(Link)`
+  font-size: 30px;
+  color: skyblue;
+  text-decoration: none;
+  margin: 0px 30px;
+
+  transition-property: color;
+  transition-duration: 0.1s;
+  transition-timing-function: linear;
+
+  &:hover {
+    color: lightblue;
+  }
+`;
+
 const StyledLink = styled(Link)`
-  font-size: 20px;
+  font-size: 25px;
+  margin: 20px 5px;
   color: white;
   text-decoration: none;
+  border-radius: 5px;
+  background-color: #1f1f1f;
+  padding: 10px;
+
+  transition-property: background-color;
+  transition-duration: 0.1s;
+  transition-timing-function: linear;
+
+  &:hover {
+    background-color: turquoise;
+  }
 `;
 
 export default Navigation;
