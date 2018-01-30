@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { RegistrationForm } from '../containers';
 
 class Register extends Component {
   render() {
     return (
-      <div>
-        <h1>HELLO THIS IS THE REGISTRATION PAGE</h1>
+      <div className="flex-center">
+        <h1>Register</h1>
+        <RegistrationForm />
       </div>
     );
   }

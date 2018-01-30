@@ -4,18 +4,9 @@ import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 import { routerReducer } from 'react-router-redux';
 import store from './store';
-import {
-  Navigation,
-  Home,
-  Register,
-  Login,
-  QuestionBanks,
-  History,
-  Search,
-  Practice,
-  MyAccount,
-  Logout
-} from './containers';
+
+import { Home, Register, Login, Logout, MyAccount } from './components';
+import { Navigation, QuestionBanks, History, Search, Practice } from './containers';
 
 // const history = syncHistoryWithStore(browserHistory, store);
 

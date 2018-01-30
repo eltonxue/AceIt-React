@@ -1,10 +1,12 @@
 import React, { Component } from 'react';
+import { LoginForm } from '../containers';
 
 class Login extends Component {
   render() {
     return (
-      <div>
-        <h1>HELLO THIS IS LOGIN PAGE</h1>
+      <div className="flex-center">
+        <h1>Login</h1>
+        <LoginForm />
       </div>
     );
   }
