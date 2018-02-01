@@ -1,4 +1,6 @@
 import { createStore, applyMiddleware, compose } from 'redux';
+import { persistStore, persistReducer } from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
 import { routerMiddleware } from 'react-router-redux';
 import createSagaMiddleware from 'redux-saga';
 import createHistory from 'history/createBrowserHistory';
@@ -20,10 +22,18 @@ if (process.env.NODE_ENV === 'development') {
   }
 }
 
+const persistConfig = {
+  key: 'root',
+  storage: storage
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
+
 const composedEnhancers = compose(applyMiddleware(...middleware), ...enhancers);
 
-const store = createStore(rootReducer, initialState, composedEnhancers);
+const store = createStore(persistedReducer, initialState, composedEnhancers);
+const persistor = persistStore(store);
 
 let rootSagas = sagaMiddleware.run(rootSaga);
 
-export default store;
+export { store, persistor };

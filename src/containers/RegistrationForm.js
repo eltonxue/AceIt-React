@@ -3,7 +3,7 @@ import { withRouter } from 'react-router-dom';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { validateRegistration } from '../actions';
+import { validateRegistration, validateLogin } from '../actions';
 
 class RegistrationForm extends Component {
   constructor(props) {
@@ -12,7 +12,8 @@ class RegistrationForm extends Component {
       username: '',
       email: '',
       password: '',
-      confirmPassword: ''
+      confirmPassword: '',
+      error: ''
     };
 
     this.onFormSubmit = this.onFormSubmit.bind(this);
@@ -23,14 +24,41 @@ class RegistrationForm extends Component {
 
     // Do authentication checks
 
-    this.props.validateRegistration(
-      this.state.username,
-      this.state.email,
-      this.state.password,
-      this.state.confirmPassword
-    );
+    if (this.state.username && this.state.email && this.state.password && this.state.confirmPassword) {
+      this.props.validateRegistration(
+        this.state.username,
+        this.state.email,
+        this.state.password,
+        this.state.confirmPassword
+      );
+    } else {
+      this.setState({ error: 'Empty fields' });
+    }
+  }
 
-    // this.props.history.push('/');
+  componentWillReceiveProps(nextProps) {
+    this.handleAuthentication(nextProps.authentication);
+  }
+
+  handleAuthentication(authentication) {
+    if (authentication.action) {
+      const response = authentication.action.payload;
+      console.log(response);
+      if (response.error) {
+        // Handle errors
+        this.setState({ error: response.error });
+        console.log(response.type);
+        console.log(response.error);
+      } else {
+        // Successful registration
+        const { username, password } = response;
+        if (response.redirect) {
+          this.props.history.push(response.redirect);
+        } else {
+          this.props.validateLogin(username, password);
+        }
+      }
+    }
   }
 
   render() {
@@ -69,6 +97,9 @@ class RegistrationForm extends Component {
               onChange={event => this.setState({ confirmPassword: event.target.value })}
             />
           </div>
+          <div>
+            <h2 className="error">{this.state.error}</h2>
+          </div>
           <button className="btn btn-1" onClick={this.onFormSubmit}>
             Register
           </button>
@@ -79,7 +110,11 @@ class RegistrationForm extends Component {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ validateRegistration }, dispatch);
+  return bindActionCreators({ validateRegistration, validateLogin }, dispatch);
 }
 
-export default connect(null, mapDispatchToProps)(withRouter(RegistrationForm));
+function mapStateToProps({ authentication }) {
+  return { authentication };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(RegistrationForm));

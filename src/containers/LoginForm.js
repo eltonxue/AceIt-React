@@ -10,7 +10,8 @@ class LoginForm extends Component {
     super(props);
     this.state = {
       username: '',
-      password: ''
+      password: '',
+      error: ''
     };
 
     this.onFormSubmit = this.onFormSubmit.bind(this);
@@ -22,11 +23,11 @@ class LoginForm extends Component {
     // console.log(this.state.username);
     // console.log(this.state.password);
 
-    // Do authentication checks
-
-    // this.props.history.push('/');
-
-    this.props.validateLogin(this.state.username, this.state.password);
+    if (this.state.username && this.state.password) {
+      this.props.validateLogin(this.state.username, this.state.password);
+    } else {
+      this.setState({ error: 'Empty fields' });
+    }
   }
 
   componentWillReceiveProps(nextProps) {
@@ -39,9 +40,11 @@ class LoginForm extends Component {
       console.log(response);
       if (response.error) {
         // Handle errors
+        this.setState({ error: response.error });
         console.log(response.type);
         console.log(response.error);
       } else {
+        // Successful login
         this.props.history.push(response.redirect);
       }
     }
@@ -65,7 +68,11 @@ class LoginForm extends Component {
             className="form-control"
             onChange={event => this.setState({ password: event.target.value })}
           />
+          <div>
+            <h2 className="error">{this.state.error}</h2>
+          </div>
         </div>
+
         <button className="btn btn-1" onClick={this.onFormSubmit}>
           Login
         </button>

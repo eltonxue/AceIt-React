@@ -1,7 +1,8 @@
 const VALIDATE_REGISTRATION_REQUESTED = 'VALIDATE_REGISTRATION_REQUESTED';
 const VALIDATE_LOGIN_REQUESTED = 'VALIDATE_LOGIN_REQUESTED';
+const LOGOUT_REQUESTED = 'LOGOUT_REQUESTED';
 
-export { VALIDATE_REGISTRATION_REQUESTED, VALIDATE_LOGIN_REQUESTED };
+export { VALIDATE_REGISTRATION_REQUESTED, VALIDATE_LOGIN_REQUESTED, LOGOUT_REQUESTED };
 
 // Actions
 function validateRegistration(username, email, password, confirmPassword) {
@@ -12,4 +13,8 @@ function validateLogin(username, password) {
   return { type: VALIDATE_LOGIN_REQUESTED, payload: { username, password } };
 }
 
-export { validateRegistration, validateLogin };
+function logout() {
+  return { type: LOGOUT_REQUESTED, payload: {} };
+}
+
+export { validateRegistration, validateLogin, logout };
