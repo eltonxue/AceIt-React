@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { verifyToken } from './actions';
 
 import { BrowserRouter, Route, Redirect, Switch } from 'react-router-dom';
 
@@ -11,24 +13,22 @@ class App extends Component {
     super(props);
     this.state = { loggedIn: false };
 
-    this.verifyAuth = this.verifyAuth.bind(this);
+    const token = document.cookie;
+    console.log(token);
+    this.props.verifyToken(token);
   }
   componentWillReceiveProps(nextProps) {
-    this.verifyAuth(nextProps.authentication);
+    this.verifyAuth();
   }
 
   componentWillMount() {
-    this.verifyAuth(this.props.authentication);
+    this.verifyAuth();
   }
 
-  verifyAuth(authentication) {
-    console.log('Verifying Auth...');
-    if (authentication.action) {
-      if (authentication.action.payload.token) {
-        this.setState({ loggedIn: true });
-      } else {
-        this.setState({ loggedIn: false });
-      }
+  verifyAuth() {
+    const token = document.cookie;
+    if (token) {
+      this.setState({ loggedIn: true });
     } else {
       this.setState({ loggedIn: false });
     }
@@ -69,8 +69,12 @@ class App extends Component {
   }
 }
 
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ verifyToken }, dispatch);
+}
+
 function mapStateToProps({ authentication }, dispatch) {
   return { authentication };
 }
 
-export default connect(mapStateToProps, null)(App);
+export default connect(mapStateToProps, mapDispatchToProps)(App);

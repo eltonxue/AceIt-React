@@ -10,26 +10,20 @@ class Navigation extends Component {
   constructor(props) {
     super(props);
     this.state = { loggedIn: false };
-
-    this.verifyAuth = this.verifyAuth.bind(this);
   }
 
   componentWillReceiveProps(nextProps) {
-    this.verifyAuth(nextProps.authentication);
+    this.verifyAuth();
   }
 
   componentWillMount() {
-    this.verifyAuth(this.props.authentication);
+    this.verifyAuth();
   }
 
-  verifyAuth(authentication) {
-    console.log('Verifying Auth...');
-    if (authentication.action) {
-      if (authentication.action.payload.token) {
-        this.setState({ loggedIn: true });
-      } else {
-        this.setState({ loggedIn: false });
-      }
+  verifyAuth() {
+    const token = document.cookie;
+    if (token) {
+      this.setState({ loggedIn: true });
     } else {
       this.setState({ loggedIn: false });
     }

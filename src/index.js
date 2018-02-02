@@ -15,9 +15,7 @@ const target = document.querySelector('#root');
 render(
   <Provider store={store}>
     <PersistGate loading={null} persistor={persistor}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
+      <App />
     </PersistGate>
   </Provider>,
   target

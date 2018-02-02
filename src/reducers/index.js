@@ -1,9 +1,11 @@
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux';
 
-import AuthenticationReducer from './authentication_reducer';
+import AuthenticationReducer from './AuthenticationReducer';
+import QuestionBanksReducer from './QuestionBanksReducer';
 
 export default combineReducers({
   routing: routerReducer,
-  authentication: AuthenticationReducer
+  authentication: AuthenticationReducer,
+  questionBanks: QuestionBanksReducer
 });

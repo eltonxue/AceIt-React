@@ -3,6 +3,8 @@ import {
   VALIDATE_REGISTRATION_FAILED,
   VALIDATE_LOGIN_SUCCEEDED,
   VALIDATE_LOGIN_FAILED,
+  VERIFY_TOKEN_SUCCEEDED,
+  VERIFY_TOKEN_FAILED,
   LOGOUT_SUCCEEDED,
   LOGOUT_FAILED
 } from '../sagas/AuthenticationSagas';
@@ -23,6 +25,12 @@ export default function(state = {}, action) {
       return { ...state, action };
     case VALIDATE_LOGIN_FAILED:
       console.log('Login Failed');
+      return state;
+    case VERIFY_TOKEN_SUCCEEDED:
+      console.log('Verify Token Succeeded received', action.payload);
+      return { ...state, action };
+    case VERIFY_TOKEN_FAILED:
+      console.log('Verification Failed');
       return state;
     case LOGOUT_SUCCEEDED:
       console.log('Logout Succeeded received', action.payload);

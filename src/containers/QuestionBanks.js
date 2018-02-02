@@ -1,6 +1,17 @@
 import React, { Component } from 'react';
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { verifyToken, fetchQuestionBanks } from '../actions';
+
 class QuestionBanks extends Component {
+  constructor(props) {
+    super(props);
+    const token = document.cookie;
+    console.log(`Token: ${token}`);
+    this.props.verifyToken();
+    this.props.fetchQuestionBanks();
+  }
   render() {
     return (
       <div>
@@ -9,5 +20,8 @@ class QuestionBanks extends Component {
     );
   }
 }
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ verifyToken, fetchQuestionBanks }, dispatch);
+}
 
-export default QuestionBanks;
+export default connect(null, mapDispatchToProps)(QuestionBanks);
