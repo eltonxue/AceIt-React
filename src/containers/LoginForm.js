@@ -35,18 +35,12 @@ class LoginForm extends Component {
   }
 
   handleAuthentication(authentication) {
-    if (authentication.action) {
-      const response = authentication.action.payload;
-      console.log(response);
-      if (response.error) {
-        // Handle errors
-        this.setState({ error: response.error });
-        console.log(response.type);
-        console.log(response.error);
-      } else {
-        // Successful login
-        this.props.history.push(response.redirect);
-      }
+    const response = authentication.data;
+    if (response.error) {
+      this.setState({ error: response.error });
+    } else {
+      // Successful login
+      this.props.history.push(response.redirect);
     }
   }
 

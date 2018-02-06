@@ -1,23 +1,26 @@
 import axios from 'axios';
 import { call, put, takeEvery, takeLatest } from 'redux-saga/effects';
 
+// Successful actions
 const VALIDATE_REGISTRATION_SUCCEEDED = 'VALIDATE_REGISTRATION_SUCCEEDED';
-const VALIDATE_REGISTRATION_FAILED = 'VALIDATE_REGISTRATION_FAILED';
 const VALIDATE_LOGIN_SUCCEEDED = 'VALIDATE_LOGIN_SUCCEEDED';
-const VALIDATE_LOGIN_FAILED = 'VALIDATE_LOGIN_FAILED';
 const VERIFY_TOKEN_SUCCEEDED = 'VERIFY_TOKEN_SUCCEEDED';
-const VERIFY_TOKEN_FAILED = 'VERIFY_TOKEN_FAILED';
 const LOGOUT_SUCCEEDED = 'LOGOUT_SUCCEEDED';
+
+// Failed actions
+const VALIDATE_REGISTRATION_FAILED = 'VALIDATE_REGISTRATION_FAILED';
+const VALIDATE_LOGIN_FAILED = 'VALIDATE_LOGIN_FAILED';
+const VERIFY_TOKEN_FAILED = 'VERIFY_TOKEN_FAILED';
 const LOGOUT_FAILED = 'LOGOUT_FAILED';
 
 export {
   VALIDATE_REGISTRATION_SUCCEEDED,
-  VALIDATE_REGISTRATION_FAILED,
   VALIDATE_LOGIN_SUCCEEDED,
-  VALIDATE_LOGIN_FAILED,
   VERIFY_TOKEN_SUCCEEDED,
-  VERIFY_TOKEN_FAILED,
   LOGOUT_SUCCEEDED,
+  VALIDATE_REGISTRATION_FAILED,
+  VALIDATE_LOGIN_FAILED,
+  VERIFY_TOKEN_FAILED,
   LOGOUT_FAILED
 };
 
@@ -29,8 +32,9 @@ const postLogin = (username, password) => {
   return axios.post('http://localhost:3000/auth/login', { username, password });
 };
 
-const getVerification = token => {
+const getVerification = () => {
   // Send token in AXIOS get through headers
+  const token = document.cookie;
   axios.defaults.headers.common['Authorization'] = token;
   return axios.get('http://localhost:3000/verify');
 };
@@ -66,7 +70,7 @@ function* validateLogin(action) {
 function* verifyToken(action) {
   try {
     const token = document.cookie;
-    const response = yield call(getVerification, token);
+    const response = yield call(getVerification);
 
     if (!response.data.token) {
       // Clear cookie

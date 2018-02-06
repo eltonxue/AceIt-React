@@ -8,4 +8,20 @@ import Practice from './Practice';
 import RegistrationForm from './RegistrationForm';
 import LoginForm from './LoginForm';
 
-export { Navigation, FeaturedQuestions, QuestionBanks, History, Search, Practice, RegistrationForm, LoginForm };
+import QuestionBanksHeader from './QuestionBanksHeader';
+import QuestionBanksList from './QuestionBanksList';
+import QuestionBank from './QuestionBank';
+
+export {
+  Navigation,
+  FeaturedQuestions,
+  QuestionBanks,
+  History,
+  Search,
+  Practice,
+  RegistrationForm,
+  LoginForm,
+  QuestionBanksHeader,
+  QuestionBanksList,
+  QuestionBank
+};

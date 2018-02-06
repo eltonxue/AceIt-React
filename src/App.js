@@ -13,9 +13,7 @@ class App extends Component {
     super(props);
     this.state = { loggedIn: false };
 
-    const token = document.cookie;
-    console.log(token);
-    this.props.verifyToken(token);
+    this.props.verifyToken();
   }
   componentWillReceiveProps(nextProps) {
     this.verifyAuth();
@@ -38,7 +36,7 @@ class App extends Component {
       return (
         <BrowserRouter>
           <div>
-            <Navigation />
+            <Navigation loggedIn={this.state.loggedIn} />
             <Switch>
               <Route exact path="/" component={Home} />
               <Route path="/question-banks" component={QuestionBanks} />
@@ -55,7 +53,7 @@ class App extends Component {
       return (
         <BrowserRouter>
           <div>
-            <Navigation />
+            <Navigation loggedIn={this.state.loggedIn} />
             <Switch>
               <Route exact path="/" component={Home} />
               <Route path="/register" component={Register} />

@@ -41,22 +41,17 @@ class RegistrationForm extends Component {
   }
 
   handleAuthentication(authentication) {
-    if (authentication.action) {
-      const response = authentication.action.payload;
-      console.log(response);
-      if (response.error) {
-        // Handle errors
-        this.setState({ error: response.error });
-        console.log(response.type);
-        console.log(response.error);
+    const response = authentication.data;
+    if (response.error) {
+      this.setState({ error: response.error });
+    } else {
+      // Successful login
+      this.props.history.push(response.redirect);
+      const { username, password } = response;
+      if (response.redirect) {
+        this.props.history.push(response.redirect);
       } else {
-        // Successful registration
-        const { username, password } = response;
-        if (response.redirect) {
-          this.props.history.push(response.redirect);
-        } else {
-          this.props.validateLogin(username, password);
-        }
+        this.props.validateLogin(username, password);
       }
     }
   }

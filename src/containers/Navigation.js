@@ -9,28 +9,10 @@ import '../styles/index.css';
 class Navigation extends Component {
   constructor(props) {
     super(props);
-    this.state = { loggedIn: false };
-  }
-
-  componentWillReceiveProps(nextProps) {
-    this.verifyAuth();
-  }
-
-  componentWillMount() {
-    this.verifyAuth();
-  }
-
-  verifyAuth() {
-    const token = document.cookie;
-    if (token) {
-      this.setState({ loggedIn: true });
-    } else {
-      this.setState({ loggedIn: false });
-    }
   }
 
   render() {
-    if (this.state.loggedIn) {
+    if (this.props.loggedIn) {
       return (
         <div className="navigation-container">
           <IconLink to="/">AceIt</IconLink>
